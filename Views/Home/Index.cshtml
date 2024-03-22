@@ -1,0 +1,50 @@
+﻿@model List<HolidayModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h3 class="display-4">Public Holiday's Finder</h3>
+    <center>
+        <form asp-controller="Home" asp-action="Index">
+            <table>
+                <tr>
+                    <td>County Code: </td>
+                    <td><input type="text" id="txtCountryCode" name="CountryCode" value=@ViewData["Country"]></td>
+                    <td id="errMsg"></td>
+                    <td>Year</td>
+                    <td><input type="text" id="txtYear" name="Year" value =@ViewData["Year"]></td>
+                    <td><input type="submit" value="Submit"/></td>
+                </tr>
+            </table>
+            <hr />
+        </form>
+    </center>
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Local Name</th>
+                    <th>County Code</th>
+                    <th>Global</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Date!.Value.ToShortDateString()</td>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LocalName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CountryCode)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Global)</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
